@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>1) Background</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+</head>
+
+<body>
+	
+	<form action='toAbilities' method="POST">
+
+		<div class="top_bar">
+			<div class="menu">
+				<button class="menu_item button1 current" type="submit" formaction='fromBackground/1' method="POST"></button>
+				<button class="menu_item button2" type="submit" formaction='fromBackground/2' method="POST"></button>
+				<button class="menu_item button3" type="submit" formaction='fromBackground/3' method="POST"></button>
+				<button class="menu_item button4" type="submit" formaction='fromBackground/4' method="POST"></button>  
+			</div>
+		</div>
+
+		<div class="content_outer">
+
+			<div class="content_inner">
+							
+
+					<h2>fOcUs</h2>
+
+					<div class="abschnitt_1">
+						<textarea name="focuss" maxlength="500" value=<%=focuss%>></textarea>
+					</div>
+
+					<h2>cLass</h2>
+
+					<div class="abschnitt_1">	
+						<textarea name="classs" maxlength="100" value=<%=classs%>></textarea> 
+					</div>
+
+					<h2>AlignMent</h2>
+
+					<div class="abschnitt_1">			
+						<textarea name="alignment" maxlength="100" value=<%=alignment%>></textarea> 
+					</div>
+
+					<h2>StoRy</h2>
+
+					<div class="abschnitt_1">	
+						<textarea name="background" maxlength="5000" value=<%=background%>></textarea> 
+					</div>
+
+				
+			</div>
+		</div>
+	</form>
+	
+	<div class="footer">
+		<h5>Logout</h5>
+	</div>
+
+	<script type="text/javascript"> //Quelle: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
+			var tx = document.getElementsByTagName('textarea');
+		for (var i = 0; i < tx.length; i++) {
+		  tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+		  tx[i].addEventListener("input", OnInput, false);
+		}
+
+		function OnInput() {
+		  this.style.height = 'auto';
+		  this.style.height = (this.scrollHeight) + 'px';
+		}
+	</script>
+</body>
+</html>

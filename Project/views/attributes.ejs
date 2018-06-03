@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>2 Attributes</title>
+
+<link rel="stylesheet" href="../css/style.css">
+<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+	<form action='toAbilities' method="POST">
+
+		<div class="top_bar">
+			<div class="menu">
+				<button class="menu_item button1" type="submit" formaction='fromAttributes/1' method="POST" >Attributes</button>
+				<button class="menu_item button2 current" type="submit" formaction='fromAttributes/2' method="POST" >Abilities</button>
+				<button class="menu_item button3" type="submit" formaction='fromAttributes/3' method="POST" ></button>
+				<button class="menu_item button4" type="submit" formaction='fromAttributes/4' method="POST" >Background</button>  
+			</div>
+		</div>
+
+		<div class="content_outer">
+			<div class="content_inner">
+							
+					<h2>AttRibuteS</h2>
+					
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="str" value=<%=str%> >
+						<h6>Strength</h6>
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="dex" value=<%=dex%> >
+						<h6>Dexterity</h6>
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="con" value=<%=con%> >
+						<h6>Constitution</h6>
+					</div>
+
+					<div class="abschnitt_3">			
+						<input class="number" type="number" name="int" value=<%=inte%> >
+						<h6>Intelligence</h6>
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="wis" value=<%=wis%> >
+						<h6>Wisdom</h6>	
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="cha" value=<%=cha%> >
+						<h6>Charisma</h6>		
+					</div>
+
+					<h2>coMbat vaLues</h2>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="atk" value=<%=atk%> >
+						<h6>Attack</h6>	
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="ac" value=<%=ac%> >
+						<h6>Armor class</h6>
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="cs" value=<%=cs%> >
+						<h6>Casting strength</h6>		
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="sr" value=<%=sr%> >
+						<h6>Spell resistance</h6>			
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="foc" value=<%=foc%> >
+						<h6>Focus</h6>
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="co" value=<%=co%> >
+						<h6>Concentration</h6>		
+					</div>
+
+					<h2>StAtUs vaLues</h2>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="hpmax" value=<%=hpmax%>	>
+						<h6>Hitpoints</h6>	
+					</div>
+					
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="hpcurrent" value=<%=hpcurrent%>>
+						<h6>Hitpoints current</h6>
+					</div>
+
+					<div class="abschnitt_3">		
+						<input class="number" type="number" name="hpdice" value=<%=hpdice%>>
+						<h6>Hitdice</h6>	
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="mpmax" value=<%=mpmax%> >
+						<h6>Mana</h6>		
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="mpcurrent" value=<%=mpcurrent%>>
+						<h6>Mana current</h6>
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="mpdice" value=<%=mpdice%>	>
+						<h6>Mana dice</h6>	
+					</div>
+
+					<div class="abschnitt_3">	
+						<input class="number" type="number" name="bpmax" value=<%=bpmax%> 	>
+						<h6>Boost</h6>	
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="bpcurrent" value=<%=bpcurrent%>>
+						<h6>Boost current</h6>
+					</div>
+
+					<div class="abschnitt_3">
+						<input class="number" type="number" name="bpdice" value=<%=bpdice%>>
+						<h6>Boost dice</h6>
+					</div>
+
+					<h2>  </h2>
+				
+			</div>
+		</div>
+
+	</form>
+	
+	<div class="footer">
+		<h5>Logout</h5>
+	</div>
+
+</body>
+</html>
