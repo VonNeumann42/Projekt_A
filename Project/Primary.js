@@ -233,14 +233,17 @@ app.post('/fromAbilities/:id', (req, res) =>{
 	for(let entry in req.body){
 			if(iterator == 0){
 				idc = req.body[entry];
+				console.log("the Id is:" + idc);
 				iterator = 1;
 			}
 			if(iterator == 1){
 				feat = req.body[entry];
+				console.log("the name is" + feat);
 				iterator = 2;
 			}
 			if(iterator == 2){
 				description = req.body[entry];
+				console.log("description" + description);
 				iterator = -1;
 				db.run(`update feats set name = '${feat}' where id = '${idc}'`);
 				db.run(`update feats set description = '${description}' where id = '${id}'`);
@@ -262,6 +265,7 @@ app.post('/fromAbilities/:id', (req, res) =>{
 	} else {
 		id -= 5
 		db.run(`DELETE FROM feats WHERE id = '${id}'`);
+		res.redirect('/toAbilities');
 	}
 
 
