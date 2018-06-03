@@ -46,22 +46,16 @@ app.get('/', (req, res) => {
 
 app.post('/login', (req, res) =>{
 	const user = req.body['name']
-	console.log(user);
 	let sq1 = `SELECT id FROM user WHERE name = '${user}'`
 	db.get(sq1, function(err, row){
-		let order = row;
-		console.log(order);
-		console.log(row.id);
 		req.session["CurrentUser"] = row.id;
-		console.log(req.session["CurrentUser"]);
+		console.log("The users ID is:" + req.session["CurrentUser"]);
 	})
 	
 	const passwordInput = req.body['password']
 	let sq2 = `SELECT password FROM user WHERE name = '${user}'`;
 	db.get(sq2, function(err, row){
-		let login = row;
-		console.log(login.password);
-	
+		let login = row;	
 		if(passwordInput === login.password){
 			res.redirect('/start')
 		} else{
@@ -79,23 +73,17 @@ app.post('/register', (req, res) =>{
 	let used = 0
 	let sq2 = `SELECT name FROM user`;
 	db.all(sq2, function(err, row){
-		console.log(row);
-		console.log("jpasdjf");
 		for(let i = 0; i < row.length; i ++){
-			console.log(row[i].name)
 			if(name === row[i].name){
 				used = 1;
 			}
 		}
-		console.log(name);
-		console.log(used);
 		if(used == 0){
 			const sql = `INSERT INTO user (name, password) VALUES ('${name}', '${passwordInput}')`;
 			db.run(sql);
 			let sq2 = `SELECT id FROM user WHERE name = '${name}'`;
 			db.get(sq2, function(err, row){
 				const newProfile = row.id;
-				console.log(row);
 				let construct = `INSERT INTO attributes (str, dex, con, int, wis, cha) VALUES (10,10,10,10,10,10)`;
 				db.run(construct);
 				construct = `INSERT INTO combatValues (atk, ac, cs, sr, foc, co) VALUES (0,0,0,0,0,0)`;
@@ -127,7 +115,7 @@ app.get('/start', (req, res) => {
 	console.log(req.session["CurrentUser"]);
 	console.log("Logged in")
 	const user = req.session["CurrentUser"];
-	res.redirect('toBackground');
+	res.redirect('toAbilities');
 			
 })
 
@@ -195,12 +183,12 @@ app.post('/fromAttributes/:id', (req, res) =>{
 
 if (id == 1) {
 		res.redirect('/toAttributes');
-	} else if (id == 4) {
-		res.redirect('/toBackground');
+	} else if (id == 2) {
+		res.redirect('/toAbilities');
 	} else if (id == 3) {
 		res.redirect('/toInventory');
-	} else {
-		res.redirect('/toAttributes');
+	} else if (id == 4) {
+		res.redirect('/toBackground');
 	}
 
 
@@ -221,57 +209,59 @@ app.post('/fromBackground/:id', (req, res) =>{
 	
 if (id == 1) {
 		res.redirect('/toAttributes');
-	} else if (id == 4) {
-		res.redirect('/toBackground');
+	} else if (id == 2) {
+		res.redirect('/toAbilities');
 	} else if (id == 3) {
 		res.redirect('/toInventory');
-	} else {
-		res.redirect('/toAttributes');
+	} else if (id == 4) {
+		res.redirect('/toBackground');
 	}
 	
 	
 })
 
-app.post('/fromAbilities', (req, res) =>{
+app.post('/fromAbilities/:id', (req, res) =>{
 	const user = req.session["CurrentUser"];
+	let id = req.params['id'];
+	console.log('The ID is:')
+	console.log(id);
+	let feat = '';
+	let idc = 0;
+	let description = '';
 	
 	let iterator = 0;
 	for(let entry in req.body){
-		if(entry != 'submit'){
 			if(iterator == 0){
-				let id = req.body[entry];
+				idc = req.body[entry];
 				iterator = 1;
 			}
 			if(iterator == 1){
-				let feat = req.body[entry];
+				feat = req.body[entry];
 				iterator = 2;
 			}
 			if(iterator == 2){
-				let description = req.body[entry];
-				iterator = 0;
-				let sql1 = `SELECT id FROM feats WHERE id='${id}'`;
-				db.get(sql1,(error, data) => {
-					if(error){
-						let construct = `INSERT INTO feats (owner, name, description) VALUES ('${user}','basic spellcasting','Use level one and two spells without penalty')`;
-						db.run(construct);
-					} else{
-						db.run(`update feats set name = '${feat}' where id = '${id}'`);
-						db.run(`update feats set description = '${description}' where id = '${id}'`);
-					}
-				})
-				
+				description = req.body[entry];
+				iterator = -1;
+				db.run(`update feats set name = '${feat}' where id = '${idc}'`);
+				db.run(`update feats set description = '${description}' where id = '${id}'`);
 			}
-		}
+			iterator ++;
 	}
-	
-if ($_POST['action'] == 'attributes') {
-		res.redirect('/toAttributes');
-	} else if ($_POST['action'] == 'background') {
-		res.redirect('/toBackground');
-	} else if ($_POST['action'] == 'inventory') {
-		res.redirect('/toInventory');
-	} else {
+	if(id == 0){
+		let construct = `INSERT INTO feats (owner, name, description) VALUES ('${user}','name of the ability','Description')`;
+		db.run(construct);
 		res.redirect('/toAbilities');
+	} else if (id == 1) {
+		res.redirect('/toAttributes');
+	} else if (id == 2) {
+		res.redirect('/toAbilities');
+	} else if (id == 3) {
+		res.redirect('/toInventory');
+	} else if (id == 4) {
+		res.redirect('/toBackground');
+	} else {
+		id -= 5
+		db.run(`DELETE FROM feats WHERE id = '${id}'`);
 	}
 
 
@@ -513,17 +503,28 @@ app.get('/toBackground',  (req, res) => {
 })
 
 
-app.get('toAbilities',  (req, res) => {
+app.get('/toAbilities',  (req, res) => {
 	const user = req.session["CurrentUser"];
 	
-	db.all(`Select * FROM feats WHERE owner = '${user}'`, function(err, row){
-		let abilities = row;
+	db.all(`Select id FROM feats WHERE owner = '${user}'`, function(err, row){
+		let id = row;
+		db.all(`Select name FROM feats WHERE owner = '${user}'`, function(err, row){
+			let abilities = row;
+			db.all(`Select description FROM feats WHERE owner = '${user}'`, function(err, row){
+				let description = row;
+				res.render('abilities',{'abilities': abilities,
+										'id': id,
+										'description': description});
+			})
+		})
 	})
 	
-	res.render(abilities,{'abilities': abilities});
+	
+	
+	
 })
 
-app.get('toInventory',  (req, res) => {
+app.get('/toInventory',  (req, res) => {
 	const user = req.session["CurrentUser"];
 	
 	db.all(`Select * FROM items WHERE owner = '${user}'`, function(err, row){

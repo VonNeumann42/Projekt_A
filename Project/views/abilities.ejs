@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Abilities</title>
+	</head>
+	<body>
+		<form action='fromAbilities' method="POST">
+			<%for (i = 0; i < abilities.length; i ++) {%>
+				<input type="hidden" name="id" value="<%=id[i].id%>">
+				<input type="text" name="name" value="<%=abilities[i].name%>" >
+				<input type="text" name="description" value="<%=description[i].description%>">
+				<button type="submit" formaction='fromAbilities/<%=id[i].id + 5%>' method="POST">löschen</button></br>
+			<%}%>
+			<button type="submit" value="new" formaction='fromAbilities/0' method="POST" >new</button></br></br>
+			
+			
+			<button type="submit" value="attributes" formaction='fromAbilities/1' method="POST" >Attributes</button>
+			<button type="submit" value="abilities" formaction='fromAbilities/2' method="POST" >Abilities</button>
+			<button type="submit" value="inventory" formaction='fromAbilities/3' method="POST" >Inventory</button>
+			<button type="submit" value="background" formaction='fromAbilities/4' method="POST" >Backgroudn</button> 
+		</form>
+	</body>
+</html>
