@@ -271,34 +271,29 @@ app.post('/fromAbilities/:id', (req, res) =>{
 
 })
 
-app.post('/fromInventory', (req, res) =>{
+app.post('/fromInventory/:id', (req, res) =>{
 	const user = req.session["CurrentUser"];
+	let id = req.params['id'];
 	
+	let name = '';
+	let idc = 0;
+	let description = '';
 	
 	let iterator = 0;
 	for(let entry in req.body){
-		if(entry != 'submit'){
 			if(iterator == 12){
-				let id = req.body[entry];
+				idc = req.body[entry];
 				iterator = 13;
 			}
 			if(iterator == 13){
-				let name = req.body[entry];
+				name = req.body[entry];
 				iterator = 14;
 			}
 			if(iterator == 14){
-				let description = req.body[entry];
-				iterator = 12;
-				let sql1 = `SELECT id FROM feats WHERE id='${id}'`;
-				db.get(sql1,(error, data) => {
-					if(error){
-						let construct = `INSERT INTO items (owner, name, description) VALUES ('${user}','item','description')`;
-						db.run(construct);
-					} else{
-						db.run(`update items set name = '${feat}' where id = '${id}'`);
-						db.run(`update items set description = '${description}' where id = '${id}'`);
-					}
-				})
+				description = req.body[entry];
+				iterator = 11;
+				db.run(`update items set name = '${name}' where id = '${idc}'`);
+				db.run(`update items set description = '${description}' where id = '${id}'`);
 			}
 			if(iterator == 0){
 				let current = req.body[entry];
@@ -348,18 +343,27 @@ app.post('/fromInventory', (req, res) =>{
 				let current = req.body[entry];
 				db.run(`update weapons set special3 = '${current}' where id = '${user}'`);
 			}
-		}
+		iterator ++;
 	}
 	
-	if ($_POST['action'] == 'attributes') {
-		res.redirect('/toAttributes');
-	} else if ($_POST['action'] == 'background') {
-		res.redirect('/toBackground');
-	} else if ($_POST['action'] == 'inventory') {
+if(id == 0){
+		let construct = `INSERT INTO items (owner, name, description) VALUES ('${user}','name of the ability','Description')`;
+		db.run(construct);
 		res.redirect('/toInventory');
-	} else {
+	} else if (id == 1) {
+		res.redirect('/toAttributes');
+	} else if (id == 2) {
 		res.redirect('/toAbilities');
+	} else if (id == 3) {
+		res.redirect('/toInventory');
+	} else if (id == 4) {
+		res.redirect('/toBackground');
+	} else {
+		id -= 5
+		db.run(`DELETE FROM items WHERE id = '${id}'`);
+		res.redirect('/toInventory');
 	}
+
 
 
 })
@@ -531,14 +535,75 @@ app.get('/toAbilities',  (req, res) => {
 app.get('/toInventory',  (req, res) => {
 	const user = req.session["CurrentUser"];
 	
-	db.all(`Select * FROM items WHERE owner = '${user}'`, function(err, row){
-		let equipment = row;
-	})
-	db.all(`Select * FROM weapons WHERE id = '${user}'`, function(err, row){
-		let weapons = row;
+	
+	db.get(`SELECT weapon1 FROM weapons WHERE id = '${user}'`, function(err, row){
+		let weapon1 = row.weapon1;
+		db.get(`SELECT damage1 FROM weapons WHERE id = '${user}'`, function(err, row){
+			let damage1 = row.damage1;
+			db.get(`SELECT crit1 FROM weapons WHERE id = '${user}'`, function(err, row){
+				let crit1 = row.crit1;
+				db.get(`SELECT special1 FROM weapons WHERE id = '${user}'`, function(err, row){
+					let special1 = row.special1;
+					db.get(`SELECT weapon2 FROM weapons WHERE id = '${user}'`, function(err, row){
+						let weapon2 = row.weapon2;
+						db.get(`SELECT damage2 FROM weapons WHERE id = '${user}'`, function(err, row){
+							let damage2 = row.damage2;
+							db.get(`SELECT crit2 FROM weapons WHERE id = '${user}'`, function(err, row){
+								let crit2 = row.crit2;
+								db.get(`SELECT special2 FROM weapons WHERE id = '${user}'`, function(err, row){
+									let special2 = row.special2;
+									db.get(`SELECT weapon3 FROM weapons WHERE id = '${user}'`, function(err, row){
+										let weapon3 = row.weapon3;
+										db.get(`SELECT damage3 FROM weapons WHERE id = '${user}'`, function(err, row){
+											let damage3 = row.damage3;
+											db.get(`SELECT crit3 FROM weapons WHERE id = '${user}'`, function(err, row){
+												let crit3 = row.crit3;
+												db.get(`SELECT special3 FROM weapons WHERE id = '${user}'`, function(err, row){
+													let special3 = row.special3;
+														db.all(`Select name FROM items WHERE owner = '${user}'`, function(err, row){
+														let equipment = row;
+														db.all(`Select id FROM items WHERE owner = '${user}'`, function(err, row){
+															let id = row;
+															db.all(`Select description FROM items WHERE owner = '${user}'`, function(err, row){
+																let description = row;
+																res.render('inventory',{'equipment': equipment,
+																						'description': description, 
+																						'id': id,
+																						'weapon1': weapon1,
+																						'damage1': damage1,
+																						'crit1': crit1,
+																						'special1': special1,
+																						'weapon2': weapon2,
+																						'damage2': damage2,
+																						'crit2': crit2,
+																						'special2': special2,
+																						'weapon3': weapon3,
+																						'damage3': damage3,
+																						'crit3': crit3,
+																						'special3': special3});
+															})	
+														})
+													})
+												})
+											})
+										})
+									})
+								})
+							})
+						})
+					})
+				})
+			})
+		})
 	})
 	
+
 	
-	res.render('inventory',{'equipment': equipment,'weapons': weapons});
+	
+
+	
+	
+	
+	
 })
 
