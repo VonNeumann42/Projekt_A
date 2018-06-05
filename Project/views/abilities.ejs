@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>2) Abilities</title>
+	<title>Abilities</title>
 	<link rel="stylesheet" href="../css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
@@ -25,7 +25,7 @@
 		<div class="content_outer">
 			<div class="content_inner">
 
-					<h2>Abilities</h2>
+					<h2>AbilitieS</h2>
 					<input type="hidden" name="length" value="<%=abilities.length%>">
 					<%for (i = 0; i < abilities.length; i ++) {%>
 						<div class="abschnitt_1">
@@ -39,14 +39,16 @@
 					<div class="abschnitt_1">
 						<button class="button" type="submit" value="new" formaction='fromAbilities/0' method="POST" >New</button>
 					</div>
-
+					<div class="clear"></div>
 
 			</div>
 		</div>
 	</form>
 
 	<div class="footer">
-		<a href="\">Logout</a> </td>
+		<a href="\">
+			<img class="logout" src="../img/logout.png" alt="Logout"> </div>
+		</a>
 	</div>
 
 	<script type="text/javascript"> //Quelle: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize

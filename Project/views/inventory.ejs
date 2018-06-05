@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>3) Inventory</title>
+	<title>Inventory</title>
 	<link rel="stylesheet" href="../css/style.css">
 	<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
@@ -25,58 +25,64 @@
 		<div class="content_outer">
 			<div class="content_inner">
 
-					<h2>Weapon 1</h2>
-					<div class="abschnitt_1">
-						<input class="word" type="text" name="weapon1" value=<%=weapon1%> >
+					<h2>weApONs</h2>
+					<div class="abschnitt_1 weapon">
+						<input class="word" type="text" name="weapon1" value="<%=weapon1%>" >
+						<div class="linie"></div>
 					</div>
 					<div class="abschnitt_2">
-				    	<input class="number" type="text" name="damage1" value=<%=damage1%> ><br>
+				    	<input class="number" type="text" name="damage1" value="<%=damage1%>" ><br>
 				    	<h6>Damage</h6>
 				    </div>
 					<div class="abschnitt_2">
-				    	<input class="number" type="text" name="crit1" value=<%=crit1%> ><br>
+				    	<input class="number" type="text" name="crit1" value="<%=crit1%>" ><br>
 				    	<h6>Crit</h6>
 				    </div>
-					<div class="abschnitt_1">
+					<div class="abschnitt_1 special">
 						<textarea name="special1" maxlength="300"><%= special1 %></textarea>
+						<div class="linie"></div>
 					</div>
 
 
-					<h2>Weapon 2</h2>
-					<div class="abschnitt_1">
-						<input class="word" type="text" name="weapon2" value=<%=weapon2%> >
+					<h2></h2>
+					<div class="abschnitt_1 weapon">
+						<input class="word" type="text" name="weapon2" value="<%=weapon2%>" >
+						<div class="linie"></div>
 					</div>
 					<div class="abschnitt_2">
-				    	<input class="number" type="text" name="damage2" value=<%=damage2%> ><br>
+				    	<input class="number" type="text" name="damage2" value="<%=damage2%>" ><br>
 				    	<h6>Damage</h6>
 				    </div>
 					<div class="abschnitt_2">
-				    	<input class="number" type="text" name="crit2" value=<%=crit2%> ><br>
+				    	<input class="number" type="text" name="crit2" value="<%=crit2%>" ><br>
 				    	<h6>Crit</h6>
 				    </div>
-					<div class="abschnitt_1">
+					<div class="abschnitt_1 special">
 						<textarea name="special2" maxlength="300"><%= special2 %></textarea>
+						<div class="linie"></div>
 					</div>
 
 
-					<h2>Weapon 3</h2>
-					<div class="abschnitt_1">
-						<input class="word" type="text" name="weapon3" value=<%=weapon3%> >
+					<h2></h2>
+					<div class="abschnitt_1 weapon">
+						<input class="word" type="text" name="weapon3" value="<%=weapon3%>" >
+						<div class="linie"></div>
 					</div>
 					<div class="abschnitt_2">
-				    	<input class="number" type="text" name="damage3" value=<%=damage3%> ><br>
+				    	<input class="number" type="text" name="damage3" value="<%=damage3%>" ><br>
 				    	<h6>Damage</h6>
 				    </div>
 					<div class="abschnitt_2">
-				    	<input class="number" type="text" name="crit3" value=<%=crit3%> ><br>
+				    	<input class="number" type="text" name="crit3" value="<%=crit3%>" ><br>
 				    	<h6>Crit</h6>
 				    </div>
-					<div class="abschnitt_1">
+					<div class="abschnitt_1 special">
 						<textarea name="special3" maxlength="300"><%= special3 %></textarea>
+						<div class="linie"></div>
 					</div>
 
-					<h2>Items</h2>
-					
+					<h2><br>ItEMs</h2>
+
 					<input type="hidden" name="length" value="<%=equipment.length%>">
 					<%for (i = 0; i < equipment.length; i ++) {%>
 
@@ -92,13 +98,15 @@
 					<div class="abschnitt_1">
 						<button class="button" type="submit" value="new" formaction='fromInventory/0' method="POST" >New</button>
 					</div>
-
+					<div class="clear"></div>
 			</div>
 		</div>
 	</form>
 
 	<div class="footer">
-		<a href="\">Logout</a> </td>
+		<a href="\">
+			<img class="logout" src="../img/logout.png" alt="Logout"> </div>
+		</a>
 	</div>
 
 	<script type="text/javascript"> //Quelle: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
