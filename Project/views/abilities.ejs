@@ -29,10 +29,10 @@
 					<input type="hidden" name="length" value="<%=abilities.length%>">
 					<%for (i = 0; i < abilities.length; i ++) {%>
 						<div class="abschnitt_1">
-							<input type="hidden" name="<%"id" + i%>" value="<%=id[i].id%>">
+							<input type="hidden" name="<%="id" + i%>" value="<%=id[i].id%>">
 							<button class="delete" type="submit" formaction='fromAbilities/<%=id[i].id + 5%>' method="POST"></button>
-							<input class="word" type="text" name="<%"name" + i%>" value="<%=abilities[i].name%>">
-							<textarea name="<%"description" + i%>" maxlength="500"><%=description[i].description%></textarea>
+							<input class="word" type="text" name="<%="name" + i%>" value="<%=abilities[i].name%>">
+							<textarea name="<%="description" + i%>" maxlength="500"><%=description[i].description%></textarea>
 						</div>
 					<%}%>
 					

@@ -235,7 +235,9 @@ app.post('/fromAbilities/:id', (req, res) =>{
 	
 	let iterator = req.body['length'];
 	console.log(iterator);
-	console.log(req.body['id0']);
+	console.log(req.body['id']);
+	
+	
 	for(i = 0; i < iterator; i++){
 		idc = req.body['id' + i];
 		console.log("the Id is:" + idc);
@@ -244,8 +246,10 @@ app.post('/fromAbilities/:id', (req, res) =>{
 		description = req.body['description' + i];
 		console.log("description" + description);
 		db.run(`update feats set name = '${feat}' where id = '${idc}'`);
-		db.run(`update feats set description = '${description}' where id = '${id}'`);
+		db.run(`update feats set description = '${description}' where id = '${idc}'`);
 	}
+	
+	
 	if(id == 0){
 		let construct = `INSERT INTO feats (owner, name, description) VALUES ('${user}','name of the ability','Description')`;
 		db.run(construct);
