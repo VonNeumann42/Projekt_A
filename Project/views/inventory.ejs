@@ -77,13 +77,14 @@
 
 					<h2>Items</h2>
 					
+					<input type="hidden" name="length" value="<%=equipment.length%>">
 					<%for (i = 0; i < equipment.length; i ++) {%>
 
 						<div class="abschnitt_1">
-							<input type="hidden" name="id" value="<%=id[i].id%>">
+							<input type="hidden" name="<%="id" + i%>" value="<%=id[i].id%>">
 							<button class="delete" type="submit" formaction='fromInventory/<%=id[i].id + 5%>' method="POST"></button>
-							<input class="word" type="text" name="name" value="<%=equipment[i].name%>">
-							<textarea name="description" maxlength="500"><%=description[i].description%></textarea>
+							<input class="word" type="text" name="<%="name" + i%>" value="<%=equipment[i].name%>">
+							<textarea name="<%="description" + i%>" maxlength="500"><%=description[i].description%></textarea>
 						</div>
 
 					<%}%>

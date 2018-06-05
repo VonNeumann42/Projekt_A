@@ -279,72 +279,53 @@ app.post('/fromInventory/:id', (req, res) =>{
 	let idc = 0;
 	let description = '';
 	
-	let iterator = 0;
-	for(let entry in req.body){
-			if(iterator == 12){
-				idc = req.body[entry];
-				iterator = 13;
-			}
-			if(iterator == 13){
-				name = req.body[entry];
-				iterator = 14;
-			}
-			if(iterator == 14){
-				description = req.body[entry];
-				iterator = 11;
-				db.run(`update items set name = '${name}' where id = '${idc}'`);
-				db.run(`update items set description = '${description}' where id = '${id}'`);
-			}
-			if(iterator == 0){
-				let current = req.body[entry];
-				db.run(`update weapons set weapon1 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 1){
-				let current = req.body[entry];
-				db.run(`update weapons set damage1 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 2){
-				let current = req.body[entry];
-				db.run(`update weapons set crit1 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 3){
-				let current = req.body[entry];
-				db.run(`update weapons set special1 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 4){
-				let current = req.body[entry];
-				db.run(`update weapons set weapon2 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 5){
-				let current = req.body[entry];
-				db.run(`update weapons set damage2 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 6){
-				let current = req.body[entry];
-				db.run(`update weapons set crit2 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 7){
-				let current = req.body[entry];
-				db.run(`update weapons set special2 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 8){
-				let current = req.body[entry];
-				db.run(`update weapons set weapon3 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 9){
-				let current = req.body[entry];
-				db.run(`update weapons set damage3 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 10){
-				let current = req.body[entry];
-				db.run(`update weapons set crit3 = '${current}' where id = '${user}'`);
-			}
-			if(iterator == 11){
-				let current = req.body[entry];
-				db.run(`update weapons set special3 = '${current}' where id = '${user}'`);
-			}
-		iterator ++;
+	let iterator = req.body['length'];
+	for(i = 0; i < iterator; i++){
+	
+		idc = req.body['id' + i];
+		name = req.body['name' + i];
+		description = req.body['description' + i];
+		db.run(`update items set name = '${name}' where id = '${idc}'`);
+		db.run(`update items set description = '${description}' where id = '${idc}'`);
 	}
+
+	let current = req.body['weapon1'];
+	db.run(`update weapons set weapon1 = '${current}' where id = '${user}'`);
+
+	current = req.body['damage1'];
+	db.run(`update weapons set damage1 = '${current}' where id = '${user}'`);
+
+	current = req.body['crit1'];
+	db.run(`update weapons set crit1 = '${current}' where id = '${user}'`);
+
+	current = req.body['special1'];
+	db.run(`update weapons set special1 = '${current}' where id = '${user}'`);
+
+	current = req.body['weapon2'];
+	db.run(`update weapons set weapon2 = '${current}' where id = '${user}'`);
+
+	current = req.body['damage2'];
+	db.run(`update weapons set damage2 = '${current}' where id = '${user}'`);
+
+	current = req.body['crit2'];
+	db.run(`update weapons set crit2 = '${current}' where id = '${user}'`);
+
+	current = req.body['special2'];
+	db.run(`update weapons set special2 = '${current}' where id = '${user}'`);
+
+	current = req.body['weapon3'];
+	db.run(`update weapons set weapon3 = '${current}' where id = '${user}'`);
+
+	current = req.body['damage3'];
+	db.run(`update weapons set damage3 = '${current}' where id = '${user}'`);
+
+	current = req.body['crit3'];
+	db.run(`update weapons set crit3 = '${current}' where id = '${user}'`);
+
+	current = req.body['special3'];
+	db.run(`update weapons set special3 = '${current}' where id = '${user}'`);
+
+	
 	
 if(id == 0){
 		let construct = `INSERT INTO items (owner, name, description) VALUES ('${user}','name of the ability','Description')`;
