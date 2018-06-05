@@ -1,15 +1,12 @@
 <!doctype html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>1) Background</title>
-
-<link rel="stylesheet" href="../css/style.css">
-<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
-
+	<meta charset="UTF-8">
+	<title>4) Background</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body>
@@ -18,10 +15,10 @@
 
 		<div class="top_bar">
 			<div class="menu">
-				<button class="menu_item button1 current" type="submit" formaction='fromBackground/1' method="POST">Attributes</button>
-				<button class="menu_item button2" type="submit" formaction='fromBackground/2' method="POST">Abilities</button>
+				<button class="menu_item button1" type="submit" formaction='fromBackground/1' method="POST"></button>
+				<button class="menu_item button2" type="submit" formaction='fromBackground/2' method="POST"></button>
 				<button class="menu_item button3" type="submit" formaction='fromBackground/3' method="POST"></button>
-				<button class="menu_item button4" type="submit" formaction='fromBackground/4' method="POST">Background</button>  
+				<button class="menu_item button4 current" type="submit" formaction='fromBackground/4' method="POST"></button>  
 			</div>
 		</div>
 
@@ -31,36 +28,34 @@
 							
 
 					<h2>fOcUs</h2>
-
 					<div class="abschnitt_1">
-						<textarea name="focuss" maxlength="500" value=<%=focuss%>></textarea>
+						<textarea name="focuss" maxlength="500"><%= focuss %></textarea>
 					</div>
 
 					<h2>cLass</h2>
 
 					<div class="abschnitt_1">	
-						<textarea name="classs" maxlength="100" value=<%=classs%>></textarea> 
+						<textarea name="classs" maxlength="100"><%= classs %></textarea> 
 					</div>
 
 					<h2>AlignMent</h2>
 
 					<div class="abschnitt_1">			
-						<textarea name="alignment" maxlength="100" value=<%=alignment%>></textarea> 
+						<textarea name="alignment" maxlength="100"><%= alignment %></textarea> 
 					</div>
 
 					<h2>StoRy</h2>
 
 					<div class="abschnitt_1">	
-						<textarea name="background" maxlength="5000" value=<%=background%>></textarea> 
+						<textarea name="background" maxlength="5000"><%= background %></textarea> 
 					</div>
 
-				
 			</div>
 		</div>
 	</form>
 	
 	<div class="footer">
-		<h5>Logout</h5>
+		<a href="\">Logout</a> </td>
 	</div>
 
 	<script type="text/javascript"> //Quelle: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize

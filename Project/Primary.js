@@ -4,6 +4,10 @@ const app = express();
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
+var path = require('path')
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.engine('.ejs', require('ejs').__express);
 app.set('view engine', 'ejs');
 
@@ -197,7 +201,7 @@ if (id == 1) {
 app.post('/fromBackground/:id', (req, res) =>{
 	const user = req.session["CurrentUser"];
 	const id = req.params['id'];
-	
+
 	let focuss = req.body['focuss'];
 	db.run(`update background set focus = '${focuss}' where id = '${user}'`);
 	let classs = req.body['classs'];
@@ -229,26 +233,18 @@ app.post('/fromAbilities/:id', (req, res) =>{
 	let idc = 0;
 	let description = '';
 	
-	let iterator = 0;
-	for(let entry in req.body){
-			if(iterator == 0){
-				idc = req.body[entry];
-				console.log("the Id is:" + idc);
-				iterator = 1;
-			}
-			if(iterator == 1){
-				feat = req.body[entry];
-				console.log("the name is" + feat);
-				iterator = 2;
-			}
-			if(iterator == 2){
-				description = req.body[entry];
-				console.log("description" + description);
-				iterator = -1;
-				db.run(`update feats set name = '${feat}' where id = '${idc}'`);
-				db.run(`update feats set description = '${description}' where id = '${id}'`);
-			}
-			iterator ++;
+	let iterator = req.body['length'];
+	console.log(iterator);
+	console.log(req.body['id0']);
+	for(i = 0; i < iterator; i++){
+		idc = req.body['id' + i];
+		console.log("the Id is:" + idc);
+		feat = req.body['name' + i];
+		console.log("the name is" + feat);
+		description = req.body['description' + i];
+		console.log("description" + description);
+		db.run(`update feats set name = '${feat}' where id = '${idc}'`);
+		db.run(`update feats set description = '${description}' where id = '${id}'`);
 	}
 	if(id == 0){
 		let construct = `INSERT INTO feats (owner, name, description) VALUES ('${user}','name of the ability','Description')`;

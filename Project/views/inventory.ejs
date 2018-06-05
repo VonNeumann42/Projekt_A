@@ -1,44 +1,118 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Weapons</title>
-	</head>
-	<body>
-		<h1>Weapons</h1>
-		<form action='toAbilities' method="POST">
-			<h2>Weapon 1</h2>
-		    Weapon: <input type="text" name="weapon1" value=<%=weapon1%> ><br>
-			Damage: <input type="text" name="damage1" value=<%=damage1%> ><br>
-			Crit: <input type="text" name="crit1" value=<%=crit1%> ><br>
-			Special: <input type="text" name="special1" value=<%=special1%> ><br>
-				<h2>Weapon 2</h2>
-		    Weapon: <input type="text" name="weapon2" value=<%=weapon2%> ><br>
-			Damage: <input type="text" name="damage2" value=<%=damage2%> ><br>
-			Crit: <input type="text" name="crit2" value=<%=crit2%> ><br>
-			Special: <input type="text" name="special2" value=<%=special2%> ><br>
-				<h2>Weapon 3</h2>
-		    Weapon: <input type="text" name="weapon3" value=<%=weapon3%> ><br>
-			Damage: <input type="text" name="damage3" value=<%=damage3%> ><br>
-			Crit: <input type="text" name="crit3" value=<%=crit3%> ><br>
-			Special: <input type="text" name="special3" value=<%=special3%> ><br>
-			<br/>
-			<br/>
-			<br/>
-			
-			<%for (i = 0; i < equipment.length; i ++) {%>
-				<input type="hidden" name="id" value="<%=id[i].id%>">
-				<input type="text" name="name" value="<%=equipment[i].name%>" >
-				<input type="text" name="description" value="<%=description[i].description%>">
-				<button type="submit" formaction='fromInventory/<%=id[i].id + 5%>' method="POST">löschen</button></br>
-			<%}%>
-			<button type="submit" value="new" formaction='fromInventory/0' method="POST" >new</button></br></br>
-			
-			<button type="submit" value="attributes" formaction='fromInventory/1' method="POST" >Attributes</button>
-			<button type="submit" value="abilities" formaction='fromInventory/2' method="POST" >Abilities</button>
-			<button type="submit" value="inventory" formaction='fromInventory/3' method="POST" >Inventory</button>
-			<button type="submit" value="background" formaction='fromInventory/4' method="POST" >Backgroudn</button> 
-		</form>
-	</body>
+<head>
+	<meta charset="UTF-8">
+	<title>3) Inventory</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+
+	<form action='toAbilities' method="POST">
+
+		<div class="top_bar">
+			<div class="menu">
+				<button class="menu_item button1" type="submit" formaction='fromInventory/1' method="POST" ></button>
+				<button class="menu_item button2" type="submit" formaction='fromInventory/2' method="POST" ></button>
+				<button class="menu_item button3 current" type="submit" formaction='fromInventory/3' method="POST" ></button>
+				<button class="menu_item button4" type="submit" formaction='fromInventory/4' method="POST" ></button>  
+			</div>
+		</div>
+
+		<div class="content_outer">
+			<div class="content_inner">
+
+					<h2>Weapon 1</h2>
+					<div class="abschnitt_1">
+						<input class="word" type="text" name="weapon1" value=<%=weapon1%> >
+					</div>
+					<div class="abschnitt_2">
+				    	<input class="number" type="text" name="damage1" value=<%=damage1%> ><br>
+				    	<h6>Damage</h6>
+				    </div>
+					<div class="abschnitt_2">
+				    	<input class="number" type="text" name="crit1" value=<%=crit1%> ><br>
+				    	<h6>Crit</h6>
+				    </div>
+					<div class="abschnitt_1">
+						<textarea name="special1" maxlength="300"><%= special1 %></textarea>
+					</div>
+
+
+					<h2>Weapon 2</h2>
+					<div class="abschnitt_1">
+						<input class="word" type="text" name="weapon2" value=<%=weapon2%> >
+					</div>
+					<div class="abschnitt_2">
+				    	<input class="number" type="text" name="damage2" value=<%=damage2%> ><br>
+				    	<h6>Damage</h6>
+				    </div>
+					<div class="abschnitt_2">
+				    	<input class="number" type="text" name="crit2" value=<%=crit2%> ><br>
+				    	<h6>Crit</h6>
+				    </div>
+					<div class="abschnitt_1">
+						<textarea name="special2" maxlength="300"><%= special2 %></textarea>
+					</div>
+
+
+					<h2>Weapon 3</h2>
+					<div class="abschnitt_1">
+						<input class="word" type="text" name="weapon3" value=<%=weapon3%> >
+					</div>
+					<div class="abschnitt_2">
+				    	<input class="number" type="text" name="damage3" value=<%=damage3%> ><br>
+				    	<h6>Damage</h6>
+				    </div>
+					<div class="abschnitt_2">
+				    	<input class="number" type="text" name="crit3" value=<%=crit3%> ><br>
+				    	<h6>Crit</h6>
+				    </div>
+					<div class="abschnitt_1">
+						<textarea name="special3" maxlength="300"><%= special3 %></textarea>
+					</div>
+
+					<h2>Items</h2>
+					
+					<%for (i = 0; i < equipment.length; i ++) {%>
+
+						<div class="abschnitt_1">
+							<input type="hidden" name="id" value="<%=id[i].id%>">
+							<button class="delete" type="submit" formaction='fromInventory/<%=id[i].id + 5%>' method="POST"></button>
+							<input class="word" type="text" name="name" value="<%=equipment[i].name%>">
+							<textarea name="description" maxlength="500"><%=description[i].description%></textarea>
+						</div>
+
+					<%}%>
+
+					<div class="abschnitt_1">
+						<button class="button" type="submit" value="new" formaction='fromInventory/0' method="POST" >New</button>
+					</div>
+
+			</div>
+		</div>
+	</form>
+
+	<div class="footer">
+		<a href="\">Logout</a> </td>
+	</div>
+
+	<script type="text/javascript"> //Quelle: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
+			var tx = document.getElementsByTagName('textarea');
+		for (var i = 0; i < tx.length; i++) {
+		  tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+		  tx[i].addEventListener("input", OnInput, false);
+		}
+
+		function OnInput() {
+		  this.style.height = 'auto';
+		  this.style.height = (this.scrollHeight) + 'px';
+		}
+	</script>
+</body>
 </html>	
 	
 	

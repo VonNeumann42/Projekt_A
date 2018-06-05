@@ -1,20 +1,55 @@
+<!doctype html>
 <html>
-	<head>
-		<title> Registrierung</title>
-	
-	</head>
-	<body>
-	
-		<table>
-			<form action="register" method="post">
-			<tr> <td>	<input type="text" name="name"> </td> <td> Name </td> </tr>
-			<tr> <td>	<input type="password" name="password"> </td> <td> Password </td> </tr>
-			<tr> <td>	<input type="submit" name="create" value="Register"> </form> </td> 
-				<td> <a href="\"> Return </a> </td>
-			</tr>
-		</table>
-	
-	</body>
+<head>
+	<meta charset="UTF-8">
+	<title>Register</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
 
+<body>
+	
+	<form action="register" method="post">
+
+		<div class="top_bar">
+			<div class="menu">
+				<button class="menu_item button1" type="submit"></button>
+				<button class="menu_item button2" type="submit"></button>
+				<button class="menu_item button3" type="submit"></button>
+				<button class="menu_item button4" type="submit"></button>  
+			</div>
+		</div>
+
+		<div class="content_outer">
+			<div class="content_inner">
+
+					<h2><br>Register</h2>
+
+					<div class="abschnitt_1">
+						<input class="word" type="text" name="name">
+						<h6>Name</h6>
+						</br></br>
+					</div>
+
+					<div class="abschnitt_1">
+						<input class="word" type="password" name="password">
+						<h6>Password</h6>
+						</br></br></br>
+					</div>				
+
+					<div class="abschnitt_1">
+						<input class="button" type="submit" name="create" value="Register">
+					</div>
+
+					<div class="abschnitt_1">
+						<a href="\">Return</a> </td>
+					</div>
+				
+			</div>
+		</div>
+
+</body>
 
 </html>

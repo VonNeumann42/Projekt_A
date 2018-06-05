@@ -1,23 +1,66 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Abilities</title>
-	</head>
-	<body>
-		<form action='fromAbilities' method="POST">
-			<%for (i = 0; i < abilities.length; i ++) {%>
-				<input type="hidden" name="id" value="<%=id[i].id%>">
-				<input type="text" name="name" value="<%=abilities[i].name%>" >
-				<input type="text" name="description" value="<%=description[i].description%>">
-				<button type="submit" formaction='fromAbilities/<%=id[i].id + 5%>' method="POST">löschen</button></br>
-			<%}%>
-			<button type="submit" value="new" formaction='fromAbilities/0' method="POST" >new</button></br></br>
-			
-			
-			<button type="submit" value="attributes" formaction='fromAbilities/1' method="POST" >Attributes</button>
-			<button type="submit" value="abilities" formaction='fromAbilities/2' method="POST" >Abilities</button>
-			<button type="submit" value="inventory" formaction='fromAbilities/3' method="POST" >Inventory</button>
-			<button type="submit" value="background" formaction='fromAbilities/4' method="POST" >Backgroudn</button> 
-		</form>
-	</body>
+<head>
+	<meta charset="UTF-8">
+	<title>2) Abilities</title>
+	<link rel="stylesheet" href="../css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Teko:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+
+<body>
+	
+	<form action='fromAbilities' method="POST">
+
+		<div class="top_bar">
+			<div class="menu">
+				<button class="menu_item button1" type="submit" formaction='fromAbilities/1' method="POST" ></button>
+				<button class="menu_item button2 current" type="submit" formaction='fromAbilities/2' method="POST" ></button>
+				<button class="menu_item button3" type="submit" formaction='fromAbilities/3' method="POST" ></button>
+				<button class="menu_item button4" type="submit" formaction='fromAbilities/4' method="POST" ></button>  
+			</div>
+		</div>
+
+		<div class="content_outer">
+			<div class="content_inner">
+
+					<h2>Abilities</h2>
+					<input type="hidden" name="length" value="<%=abilities.length%>">
+					<%for (i = 0; i < abilities.length; i ++) {%>
+						<div class="abschnitt_1">
+							<input type="hidden" name="<%"id" + i%>" value="<%=id[i].id%>">
+							<button class="delete" type="submit" formaction='fromAbilities/<%=id[i].id + 5%>' method="POST"></button>
+							<input class="word" type="text" name="<%"name" + i%>" value="<%=abilities[i].name%>">
+							<textarea name="<%"description" + i%>" maxlength="500"><%=description[i].description%></textarea>
+						</div>
+					<%}%>
+					
+					<div class="abschnitt_1">
+						<button class="button" type="submit" value="new" formaction='fromAbilities/0' method="POST" >New</button>
+					</div>
+
+
+			</div>
+		</div>
+	</form>
+
+	<div class="footer">
+		<a href="\">Logout</a> </td>
+	</div>
+
+	<script type="text/javascript"> //Quelle: https://stackoverflow.com/questions/454202/creating-a-textarea-with-auto-resize
+			var tx = document.getElementsByTagName('textarea');
+		for (var i = 0; i < tx.length; i++) {
+		  tx[i].setAttribute('style', 'height:' + (tx[i].scrollHeight) + 'px;overflow-y:hidden;');
+		  tx[i].addEventListener("input", OnInput, false);
+		}
+
+		function OnInput() {
+		  this.style.height = 'auto';
+		  this.style.height = (this.scrollHeight) + 'px';
+		}
+	</script>
+
+</body>
 </html>
