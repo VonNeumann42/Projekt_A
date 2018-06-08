@@ -1,3 +1,6 @@
+/*
+In diesem Teil werden die Libraries initialisiert. 
+*/
 const express = require ('express');
 const app = express();
 
@@ -30,7 +33,17 @@ app.listen(port, function () {
 	console.log('affirmative')
 });
 
+
+
+//___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+//___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+/*
+In diesem Teil wird die website gestartet. Nutzerverwaltung, Registrierung und das anlegen der Tabellen gehört zu diesem teil.
+*/
+
 app.get('/', (req, res) => {
+	// Sofern keine Tabellen gefunden werden, werden sie hier angelegt.
 	let sql1 = `SELECT id FROM user WHERE id=0`;
 	db.get(sql1,(error, data) => {
 		if(error){
@@ -45,6 +58,7 @@ app.get('/', (req, res) => {
 			db.run(`CREATE TABLE items(id INTEGER PRIMARY KEY AUTOINCREMENT, owner INTEGER NOT NULL, name TEXT, description TEXT)`);
 		}
 	})
+	//Aufruf der Login Seite.
 	res.render('Start', {});
 });
 
@@ -52,10 +66,11 @@ app.post('/login', (req, res) =>{
 	const user = req.body['name']
 	let sq1 = `SELECT id FROM user WHERE name = '${user}'`
 	db.get(sq1, function(err, row){
+		//Setzen der Session Variable. Diese wird genutzt um Werte für den aktuellen Nutzer auszulesen. 
 		req.session["CurrentUser"] = row.id;
-		console.log("The users ID is:" + req.session["CurrentUser"]);
 	})
 	
+	// passwort überprüfung
 	const passwordInput = req.body['password']
 	let sq2 = `SELECT password FROM user WHERE name = '${user}'`;
 	db.get(sq2, function(err, row){
@@ -75,6 +90,7 @@ app.post('/register', (req, res) =>{
 	let name = req.body['name']
 	let passwordInput = req.body['password']
 	let used = 0
+	// Überprüfung ob der Name bereits vorhanden ist.
 	let sq2 = `SELECT name FROM user`;
 	db.all(sq2, function(err, row){
 		for(let i = 0; i < row.length; i ++){
@@ -83,6 +99,7 @@ app.post('/register', (req, res) =>{
 			}
 		}
 		if(used == 0){
+			//Anlegen des Neuen Profils.
 			const sql = `INSERT INTO user (name, password) VALUES ('${name}', '${passwordInput}')`;
 			db.run(sql);
 			let sq2 = `SELECT id FROM user WHERE name = '${name}'`;
@@ -116,11 +133,10 @@ app.get('/create', (req, res) => {
 })
 
 app.get('/start', (req, res) => {
-	console.log(req.session["CurrentUser"]);
-	console.log("Logged in")
+	console.log("Login Successfull!");
+	// Bei Erfolgreichem Login wird der User nun auf seine Seiten weitergeleitet.
 	const user = req.session["CurrentUser"];
 	res.redirect('toAbilities');
-			
 })
 
 
@@ -130,15 +146,20 @@ app.get('/start', (req, res) => {
 //___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 //___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-
+/*
+From- Methoden. Diese werden Aufgerufen wenn der User von einer Seite auf eine andere wechseln möchte.
+Die werte der seite werden In der Datenbank Gespeichert. 
+Zusätzlich wird Eine ID aus dem Body ausgelesen. 
+Diese gibt an zu welcher Seite der User weitergeleitet wird.
+Bei Abilities und Inventory kann die Id weitere werte annehmen. 0 bedeutet, dass ein Neuer eintrag erstellt wird.
+Werte von 5 oder mehr bedeuten dass ein Eintrag gelöscht werden soll.
+*/
 
 
 
 app.post('/fromAttributes/:id', (req, res) =>{
 	const user = req.session["CurrentUser"];
 	const id = req.params['id'];
-	console.log('The ID is:')
-	console.log(id);
 	
 	let str = req.body['str'];
 	db.run(`update attributes set str = '${str}' where id = '${user}'`);
@@ -227,24 +248,17 @@ if (id == 1) {
 app.post('/fromAbilities/:id', (req, res) =>{
 	const user = req.session["CurrentUser"];
 	let id = req.params['id'];
-	console.log('The ID is:')
-	console.log(id);
 	let feat = '';
 	let idc = 0;
 	let description = '';
 	
 	let iterator = req.body['length'];
-	console.log(iterator);
-	console.log(req.body['id']);
 	
 	
 	for(i = 0; i < iterator; i++){
 		idc = req.body['id' + i];
-		console.log("the Id is:" + idc);
 		feat = req.body['name' + i];
-		console.log("the name is" + feat);
 		description = req.body['description' + i];
-		console.log("description" + description);
 		db.run(`update feats set name = '${feat}' where id = '${idc}'`);
 		db.run(`update feats set description = '${description}' where id = '${idc}'`);
 	}
@@ -344,21 +358,20 @@ if(id == 0){
 		db.run(`DELETE FROM items WHERE id = '${id}'`);
 		res.redirect('/toInventory');
 	}
-
-
-
 })
 
+
+//___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+//___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+/*
+Die To- Methoden Lesen die Daten der Datenbank aus und Leiten diese an die ejs files weiter.
+*/
+
+
 app.get('/toAttributes', (req, res) => {
-	console.log("arrived at toAttributes");
 	const user = (req.session["CurrentUser"]);
-	console.log(user);
 	db.get(`SELECT str FROM attributes WHERE id = '${user}'`, function(err, row){
-		console.log(row);
-		console.log(row.str);
 		let str = row.str;
-		console.log(str);
-	
 		db.get(`SELECT dex FROM attributes WHERE id = '${user}'`, function(err, row){
 			let dex = row.dex;
 			db.get(`SELECT con FROM attributes WHERE id = '${user}'`, function(err, row){
@@ -445,24 +458,11 @@ app.get('/toAttributes', (req, res) => {
 			})
 		})
 	})
-	
-	
-	
-	
-	
-	
-	
-	
-	console.log("Attributes acquired")
-
 })
 
 app.get('/toBackground',  (req, res) => {
-	console.log("reached Background");
 	const user = req.session["CurrentUser"];
-	console.log(user)
 	db.get(`SELECT focus FROM background WHERE id = '${user}'`, function(err, row){
-		console.log(row.focus);
 		let focuss = "" + row.focus;
 		db.get(`SELECT class FROM background WHERE id = '${user}'`, function(err, row){
 			let classs = "" + row.class;
@@ -481,20 +481,11 @@ app.get('/toBackground',  (req, res) => {
 			})
 		})
 	})
-	
-	
-	
-	
-	
-	
-	
-	
 })
 
 
 app.get('/toAbilities',  (req, res) => {
 	const user = req.session["CurrentUser"];
-	
 	db.all(`Select id FROM feats WHERE owner = '${user}'`, function(err, row){
 		let id = row;
 		db.all(`Select name FROM feats WHERE owner = '${user}'`, function(err, row){
@@ -507,16 +498,10 @@ app.get('/toAbilities',  (req, res) => {
 			})
 		})
 	})
-	
-	
-	
-	
 })
 
 app.get('/toInventory',  (req, res) => {
 	const user = req.session["CurrentUser"];
-	
-	
 	db.get(`SELECT weapon1 FROM weapons WHERE id = '${user}'`, function(err, row){
 		let weapon1 = row.weapon1;
 		db.get(`SELECT damage1 FROM weapons WHERE id = '${user}'`, function(err, row){
@@ -577,14 +562,5 @@ app.get('/toInventory',  (req, res) => {
 			})
 		})
 	})
-	
-
-	
-	
-
-	
-	
-	
-	
 })
 
